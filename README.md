@@ -1,18 +1,18 @@
-Refreshement/Memo on the creation of a JWT token based auth in .NET 6
+# Memo on the creation of a JWT token based auth in .NET 6
 
-# Visual Studio project type: ASP .NET Core Web API.
-# Nuget:
+## Visual Studio project type: ASP .NET Core Web API.
+## Nuget:
 	- Microsoft.AspNetCore.Authentication.JwtBearer,
 	(- Microsoft.EntityFrameworkCore.SqlServer,
 	- Microsoft.EntityFrameworkCore.Tools, 
 	- Microsoft.AspNetCore.Identity.EntityFrameworkCore)
-#Into appsettings.json:
+##Into appsettings.json:
 	"JWT": {
 		"Key": "kljuc",
 		"Issuer": "izdavac",
 		"Audience": ""42069"
 	  }
-# Configuring a strongly typed settings object as a dependency injection based on appsettings.json:
+## Configuring a strongly typed settings object as a dependency injection based on appsettings.json:
 	- Define the object inside of root of appsettings.json;
 		e.g. "JWT": {
 				"Key": "kljuc",
