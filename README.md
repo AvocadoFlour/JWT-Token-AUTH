@@ -6,7 +6,7 @@
 	(- Microsoft.EntityFrameworkCore.SqlServer,
 	- Microsoft.EntityFrameworkCore.Tools, 
 	- Microsoft.AspNetCore.Identity.EntityFrameworkCore)
-##Into appsettings.json:
+## Into appsettings.json:
 	"JWT": {
 		"Key": "kljuc",
 		"Issuer": "izdavac",
