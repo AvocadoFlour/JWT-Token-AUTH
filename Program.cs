@@ -1,34 +1,35 @@
+using JWT_Token_AUTH.Helpers;
+using JWT_Token_AUTH.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// add services to DI container
+{
+    var services = builder.Services;
+    services.AddCors();
+    services.AddControllers();
+
+    // configure strongly typed settings object
+    services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
+
+    // configure DI for application services
+    services.AddScoped<IUserService, UserService>();
+}
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
-app.UseHttpsRedirection();
-
-var summaries = new[]
+// configure HTTP request pipeline
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    // global cors policy
+    app.UseCors(x => x
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-       new WeatherForecast
-       (
-           DateTime.Now.AddDays(index),
-           Random.Shared.Next(-20, 55),
-           summaries[Random.Shared.Next(summaries.Length)]
-       ))
-        .ToArray();
-    return forecast;
-});
+    // custom jwt auth middleware
+    app.UseMiddleware<JwtMiddleware>();
 
-app.Run();
-
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    app.MapControllers();
 }
+
+app.Run("http://localhost:4000");
