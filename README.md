@@ -22,10 +22,8 @@
 	- Create a class with the name of the object as the class name and the attributes as the variables.
 	- In Program.cs: services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
 	- Where you want to utilize the settings object:
-		```
-		- private readonly JWT _jwt;
-		- public UserService(IOptions<JWT> jwt)
-		- {
-		-     _jwt = jwt.Value;
-		-  }
-		```
+		private readonly JWT _jwt;
+		public UserService(IOptions<JWT> jwt)
+		{
+		   _jwt = jwt.Value;
+		}
